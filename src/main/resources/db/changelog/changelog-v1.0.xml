@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+       http://www.liquibase.org/xml/ns/dbchangelog
+       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+    <changeSet author="Stjepan"  id="1">
+        <createTable
+                    schemaName="bankAccounts"
+                    tableName="users">
+            <column name="id" type="bigserial">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="username" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="nvarchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="nvarchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="nvarchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="varchar(255)"/>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Stjepan"  id="2">
+        <createTable
+                schemaName="bankAccounts"
+                tableName="bank_accounts">
+            <column name="id" type="bigserial" >
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="balance" type="numeric(19,2)"/>
+            <column name="allowed_minus" type="numeric(19,2)"/>
+            <column name="limit_withdraw" type="numeric(19,2)"/>
+            <column name="bank_account_user_fk" type="bigint">
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="bank_accounts" baseColumnNames="bank_account_user_fk" constraintName="bank_account_user_fk_constraint"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"/>
+
+    </changeSet>
+
+
+</databaseChangeLog>
